@@ -38,8 +38,9 @@ export default function RoleSelector() {
   ];
 
   return (
-    <SafeAreaView className="flex-1 bg-[#0B0F19]">
+    <SafeAreaView style={{ flex: 1, backgroundColor: '#0B0F19' }}>
       <ScrollView 
+        style={{ flex: 1 }}
         contentContainerStyle={{ padding: 24, paddingBottom: 60 }}
         showsVerticalScrollIndicator={false}
       >
