@@ -1,6 +1,6 @@
 # 🎯 FanQuest: The Engagement Economy
 
-![FanQuest Banner](fanquest-frontend/assets/images/logo.png)
+![FanQuest Banner](fanquest-frontend/assets/images/logo.jpeg)
 
 > **HACKHAZARDS '26 Submission**
 > **Theme:** Media, Social & Interactive Platforms
