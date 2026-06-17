@@ -9,7 +9,24 @@ const ONBOARDING_CONFIG: Record<string, any[]> = {
   fan: [
     { id: 'auth', type: 'auth_options', question: 'Start your Account', emoji: '', fieldLabel: '' },
     { id: 'gamer_tag', type: 'text', question: 'Choose your Gamer Tag', emoji: '👾', fieldLabel: 'Gamer Tag', placeholder: '@username' },
-    { id: 'selected_factions', type: 'multiselect', question: 'Select your factions', emoji: '⚔️', fieldLabel: 'Choose at least 3', options: ['Tech', 'Web3', 'Gaming', 'Esports', 'Anime', 'Music'] }
+    { 
+      id: 'selected_factions', 
+      type: 'image_grid', 
+      question: 'Choose 3 or more Creators you follow.', 
+      emoji: '', 
+      fieldLabel: '',
+      options: [
+        { id: 'mrbeast', name: 'MrBeast', image: 'https://images.unsplash.com/photo-1541216970279-affbf182dc72?w=200&q=80' },
+        { id: 'mkbhd', name: 'MKBHD', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=200&q=80' },
+        { id: 'fireship', name: 'Fireship', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&q=80' },
+        { id: 'primeagen', name: 'ThePrimeagen', image: 'https://images.unsplash.com/photo-1520409364224-63400afe26e5?w=200&q=80' },
+        { id: 't3', name: 'Theo - t3.gg', image: 'https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?w=200&q=80' },
+        { id: 'thor', name: 'Pirate Software', image: 'https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=200&q=80' },
+        { id: 'ltt', name: 'Linus Tech Tips', image: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=200&q=80' },
+        { id: 'xqc', name: 'xQc', image: 'https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=200&q=80' },
+        { id: 'kai', name: 'Kai Cenat', image: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&q=80' }
+      ]
+    }
   ],
   creator: [
     { id: 'youtube_auth', type: 'youtube_oauth', question: 'Connect your Command Center.', emoji: '', fieldLabel: '' },
@@ -52,7 +69,7 @@ export default function DynamicOnboarding() {
     if (currentStepIndex < steps.length - 1) {
       setCurrentStepIndex(prev => prev + 1);
     } else {
-      router.push('/(app)/quests');
+      router.push('/(app)/dashboard');
     }
   };
 
@@ -160,6 +177,75 @@ export default function DynamicOnboarding() {
               />
             </View>
           )}
+        </View>
+      );
+    }
+
+    if (currentStep.type === 'image_grid') {
+      const selectedOptions = formData[currentStep.id] || [];
+
+      return (
+        <View style={{ marginTop: 0 }}>
+          {/* Search Bar */}
+          <View style={{ 
+            backgroundColor: 'white', 
+            borderRadius: 4, 
+            paddingHorizontal: 16, 
+            paddingVertical: 12, 
+            flexDirection: 'row', 
+            alignItems: 'center',
+            marginBottom: 32
+          }}>
+            <MaterialCommunityIcons name="magnify" size={24} color="black" style={{ marginRight: 8 }} />
+            <TextInput 
+              placeholder="Search"
+              placeholderTextColor="#555"
+              style={{ color: 'black', fontSize: 16, fontWeight: '500', flex: 1, borderWidth: 0, outlineStyle: 'none' } as any}
+            />
+          </View>
+
+          {/* Grid */}
+          <View style={{ flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+            {currentStep.options.map((option: any) => {
+              const isSelected = selectedOptions.includes(option.id);
+              
+              return (
+                <TouchableOpacity
+                  key={option.id}
+                  onPress={() => toggleMultiselect(option.id)}
+                  style={{ width: '30%', alignItems: 'center', marginBottom: 24 }}
+                  activeOpacity={0.8}
+                >
+                  <View 
+                    style={{ 
+                      width: 100, 
+                      height: 100, 
+                      borderRadius: 50, 
+                      overflow: 'hidden',
+                      marginBottom: 8,
+                      position: 'relative'
+                    }}
+                  >
+                    <Image 
+                      source={{ uri: option.image }} 
+                      style={{ width: '100%', height: '100%', opacity: isSelected ? 0.5 : 1 }} 
+                      contentFit="cover"
+                    />
+                    {isSelected && (
+                      <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, alignItems: 'center', justifyContent: 'center' }}>
+                         <View style={{ backgroundColor: 'white', borderRadius: 20, padding: 2 }}>
+                           <MaterialCommunityIcons name="check-circle" size={28} color="black" />
+                         </View>
+                      </View>
+                    )}
+                  </View>
+                  <Text style={{ color: 'white', fontWeight: 'bold', fontSize: 13, textAlign: 'center' }}>
+                    {option.name}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
         </View>
       );
     }
