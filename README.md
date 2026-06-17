@@ -1,6 +1,6 @@
 # 🎯 FanQuest: The Engagement Economy
 
-![FanQuest Banner](https://via.placeholder.com/1200x400.png?text=FanQuest+-+Replace+Subscriptions+with+Action)
+![FanQuest Banner](fanquest-frontend/assets/images/logo-glow.png)
 
 > **HACKHAZARDS '26 Submission**
 > **Theme:** Media, Social & Interactive Platforms
